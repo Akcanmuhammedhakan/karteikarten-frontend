@@ -13,16 +13,23 @@
 import FlashCard from './components/FlashCard.vue'
 
 const cards = [
-  { id: 1, question: 'Was ist JavaScript?', answer: 'JavaScript ist eine Programmiersprache für Webseiten.' },
-  { id: 2, question: 'Was ist Vue.js?', answer: 'Vue.js ist ein Framework für die Erstellung von Benutzeroberflächen.' },
-  { id: 3, question: 'Was ist HTML?', answer: 'HTML ist die Struktur einer Webseite.' }
+  { id: 1, topic: 'Datenbanktechnologien', question: 'Was beinhaltet das Fach?', answer: 'SQL-Basics, JavaScript, Vorlesungsstoff' },
+  { id: 2, topic: 'WebTech', question: 'Was ist im WebTech-Projekt wichtig?', answer: 'Projektarbeit, Vorlesungsstoff, Übungsaufgaben' },
+  { id: 3, topic: 'Controlling', question: 'Was sind die wichtigsten Themen?', answer: 'Controlling-Basics, Kostenstellenrechnung, Test-Inhalte' }
 ]
 </script>
 
 <style scoped>
 #app {
-  max-width: 600px;
+  max-width: 800px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
 }
 </style>

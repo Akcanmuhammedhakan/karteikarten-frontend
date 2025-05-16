@@ -10,13 +10,22 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import FlashCard from './components/FlashCard.vue'
 
-const cards = [
-  { id: 1, question: 'Was ist JavaScript?', answer: 'JavaScript ist eine Programmiersprache für Webseiten.' },
-  { id: 2, question: 'Was ist Vue.js?', answer: 'Vue.js ist ein Framework für die Erstellung von Benutzeroberflächen.' },
-  { id: 3, question: 'Was ist HTML?', answer: 'HTML ist die Struktur einer Webseite.' }
-]
+// Reaktive Variable für die Karten
+const cards = ref([])
+
+// Beim Laden der Komponente: Daten vom Backend holen
+onMounted(async () => {
+  try {
+    const response = await fetch('https://karteikarten-app.onrender.com/cards')
+    if (!response.ok) throw new Error('Fehler beim Abrufen der Karten')
+    cards.value = await response.json()
+  } catch (error) {
+    console.error('Fetch-Fehler:', error)
+  }
+})
 </script>
 
 <style scoped>
