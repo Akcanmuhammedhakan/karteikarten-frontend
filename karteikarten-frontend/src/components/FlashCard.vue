@@ -10,7 +10,7 @@
 defineProps(['card'])
 
 function handleClick() {
-  alert(`Thema: ${card.category}\nFrage: ${card.question}`)
+  alert(`Theema: ${card.category}\nFrage: ${card.question}`)
 }
 </script>
 
