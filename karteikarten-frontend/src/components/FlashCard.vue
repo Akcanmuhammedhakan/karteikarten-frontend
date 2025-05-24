@@ -2,8 +2,7 @@
 .flashcard {
   cursor: pointer;
   border-radius: 16px;
-  background-color: #fefefe;
-  padding: 2rem;
+  background-color: #ffefef; /* einfach sichtbar */  padding: 2rem;
   margin: 1rem;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
