@@ -20,10 +20,7 @@
   margin-bottom: 0.5rem;
 }
 
-.flashcard h4 {
-  font-size: 1.4rem;
-  color: #333;
-}
+.flashcard <h4 style="color: red;">TEST123</h4>
 
 .flashcard p {
   font-size: 1rem;
