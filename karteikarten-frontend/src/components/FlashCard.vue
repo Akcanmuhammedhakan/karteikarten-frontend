@@ -10,8 +10,7 @@
 defineProps(['card'])
 
 function handleClick() {
-  alert('Diese Karte wurde geklickt!')
-  // Später: hier kannst du z. B. auf eine Detailseite navigieren
+  alert(`Thema: ${card.category}\nFrage: ${card.question}`)
 }
 </script>
 
@@ -21,31 +20,30 @@ function handleClick() {
   border-radius: 12px;
   background-color: white;
   padding: 1.5rem;
-  margin: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .flashcard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .flashcard h3 {
-  margin: 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
-  color: #555;
+  color: #444;
 }
 
 .flashcard h4 {
-  margin-top: 0.5rem;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
+  margin: 0.3rem 0;
   color: #222;
 }
 
 .flashcard p {
-  margin-top: 0.5rem;
   font-size: 1rem;
   color: #666;
+  margin-top: 0.5rem;
 }
 </style>
