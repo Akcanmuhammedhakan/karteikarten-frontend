@@ -10,40 +10,42 @@
 defineProps(['card'])
 
 function handleClick() {
-  alert(`Theema: ${card.category}\nFrage: ${card.question}`)
+  alert(`Thema: ${card.category}\nFrage: ${card.question}`)
 }
 </script>
 
 <style scoped>
 .flashcard {
   cursor: pointer;
-  border-radius: 12px;
-  background-color: white;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff, #f4f4f4);
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
 }
 
 .flashcard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 .flashcard h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  color: #444;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0066cc;
 }
 
 .flashcard h4 {
+  margin-top: 0.75rem;
   font-size: 1.25rem;
-  margin: 0.3rem 0;
-  color: #222;
+  color: #111;
 }
 
 .flashcard p {
-  font-size: 1rem;
-  color: #666;
   margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
 }
 </style>
