@@ -1,22 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-teal-900 via-purple-900 to-black text-white p-6 overflow-hidden" id="background">
+  <div class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white p-6">
     <h1 class="text-5xl font-extrabold text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 animate-pulse">
       Karteikarten Meisterwerk
     </h1>
 
     <!-- Funktionsleiste -->
-    <div class="mb-8 flex justify-center space-x-4">
-      <button @click="addCard" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Karte hinzufügen</button>
-      <button @click="sortCards" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Nach Thema sortieren</button>
-      <button @click="saveCards" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Speichern</button>
-      <button @click="quizMode" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md transition-transform hover:scale-105">Abfragen</button>
+    <div class="mb-8 text-center">
+      <button @click="addCard" class="btn btn-add px-6 py-3 mr-4">Karte hinzufügen</button>
+      <button @click="sortCards" class="btn btn-sort px-6 py-3 mr-4">Nach Thema sortieren</button>
+      <button @click="saveCards" class="btn btn-save px-6 py-3 mr-4">Speichern</button>
+      <button @click="quizMode" class="btn btn-quiz px-6 py-3">Abfragen</button>
     </div>
 
-    <!-- Debugging: Zeige die Anzahl der Karten -->
+    <!-- Debugging -->
     <p class="text-center text-gray-400 mb-4">{{ cards.length }} Karten gefunden</p>
 
     <!-- Karteikarten-Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
       <FlashCard
           v-for="card in sortedCards"
           :key="card.id"
@@ -93,35 +93,40 @@ const sortedCards = computed(() => [...cards.value]);
 </script>
 
 <style scoped>
-#background {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23009ffd" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,176C384,192,480,192,576,176C672,160,768,128,864,128C960,128,1056,160,1152,176C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
-  background-size: 200% 100%;
-  animation: wave 15s infinite linear;
-}
-
-@keyframes wave {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
-}
-
 h1 {
-  text-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
-  animation: pulse 2s infinite;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-button {
+.btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  min-width: 220px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-add { background-color: #28a745; color: white; }
+.btn-add:hover { background-color: #218838; }
+.btn-sort { background-color: #007bff; color: white; }
+.btn-sort:hover { background-color: #0056b3; }
+.btn-save { background-color: #6610f2; color: white; }
+.btn-save:hover { background-color: #520dc2; }
+.btn-quiz { background-color: #e83e8c; color: white; }
+.btn-quiz:hover { background-color: #c82373; }
+
+.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-3 > * {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-3 > *:hover {
+  transform: translateY(-5px);
+  opacity: 0.95;
 }
 </style>
