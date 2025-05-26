@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <h1>Karteikarten Übersicht</h1>
-    <FlashCard
-        v-for="card in cards"
-        :key="card.id"
-        :card="card"
-    />
+    <div class="card-grid">
+      <FlashCard
+          v-for="card in cards"
+          :key="card.id"
+          :card="card"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,5 +33,12 @@ h1 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 </style>
