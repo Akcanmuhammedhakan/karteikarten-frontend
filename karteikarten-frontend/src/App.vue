@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <h1>Karteikarten Übersicht</h1>
+    <h1>Karteikarten Meisterwerk</h1>
+
+    <!-- 🔹 Formular-Komponente -->
+    <CardForm @card-saved="loadCards" />
+
+    <!-- 🔹 Kartenübersicht -->
     <div class="card-grid">
       <FlashCard
           v-for="card in cards"
@@ -11,6 +16,26 @@
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue'
+import FlashCard from './components/FlashCard.vue'
+import CardForm from './components/CardForm.vue'
+
+const cards = ref([])
+
+const loadCards = async () => {
+  try {
+    const response = await fetch('http://localhost:8080/cards')
+    if (!response.ok) throw new Error('Fehler beim Laden der Karten')
+    cards.value = await response.json()
+  } catch (err) {
+    console.error('Fehler beim Laden:', err)
+  }
+}
+
+onMounted(loadCards)
+</script>
+
 <style scoped>
 #app {
   max-width: 1000px;
@@ -18,6 +43,7 @@
   padding: 2rem;
   text-align: center;
   color: #eee;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .card-grid {
