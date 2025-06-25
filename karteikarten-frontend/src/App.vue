@@ -23,9 +23,10 @@ import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
 
+// ✅ ÄNDERE DIE URL HIER
 const loadCards = async () => {
   try {
-    const response = await fetch('http://localhost:8080/cards')
+    const response = await fetch('https://karteikarten-app.onrender.com/cards') // ← Richtig!
     if (!response.ok) throw new Error('Fehler beim Laden der Karten')
     cards.value = await response.json()
   } catch (err) {
