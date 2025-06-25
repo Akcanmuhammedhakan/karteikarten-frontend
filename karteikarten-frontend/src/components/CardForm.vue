@@ -33,14 +33,14 @@ const card = ref({
 
 const submitCard = async () => {
   try {
-    const response = await fetch('http://localhost:8080/cards', {
+    const response = await fetch('https://karteikarten-app.onrender.com/cards', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...card.value, correctCount: 0 })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({...card.value, correctCount: 0})
     })
     if (!response.ok) throw new Error('Fehler beim Speichern')
-    card.value = { question: '', answer: '', category: '' }
-    emit('card-saved') // 💡 wichtig fürs Nachladen in App.vue
+    card.value = {question: '', answer: '', category: ''}
+    emit('card-saved') // Wichtig fürs Nachladen in App.vue
   } catch (err) {
     console.error(err)
     alert('Fehler beim Speichern der Karte')
