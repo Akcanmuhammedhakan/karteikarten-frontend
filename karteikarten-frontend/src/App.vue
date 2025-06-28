@@ -12,7 +12,7 @@
     <div class="card-grid">
       <FlashCard
           v-for="card in cards"
-          :key="card.id"
+          :key="card.id + '-' + shuffleKey"
           :card="card"
       />
     </div>
@@ -25,6 +25,7 @@ import FlashCard from './components/FlashCard.vue'
 import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
+const shuffleKey = ref(0) // 💡 damit Vue neu rendert
 
 // 🔁 Karten vom Backend laden & direkt mischen
 const loadCards = async () => {
@@ -33,6 +34,7 @@ const loadCards = async () => {
     if (!response.ok) throw new Error('Fehler beim Laden der Karten')
     const fetchedCards = await response.json()
     cards.value = shuffleArray(fetchedCards)
+    shuffleKey.value++ // damit es beim Laden neu rendert
   } catch (err) {
     console.error('Fehler beim Laden:', err)
   }
@@ -51,6 +53,7 @@ const shuffleArray = (array) => {
 // 🔘 Manuelles Mischen durch Button
 const sortCards = () => {
   cards.value = shuffleArray(cards.value)
+  shuffleKey.value++ // 🔁 zwingt v-for zur Neudarstellung
 }
 
 onMounted(loadCards)
