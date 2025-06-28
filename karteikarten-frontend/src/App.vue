@@ -27,7 +27,7 @@ import CardForm from './components/CardForm.vue'
 const cards = ref([])
 const shuffleKey = ref(0) // 💡 damit Vue neu rendert
 
-// 🔁 Karten vom Backend laden & direkt mischen
+// 🔁 Karten vom Backend laden
 const loadCards = async () => {
   try {
     const response = await fetch('https://karteikarten-app.onrender.com/cards')
@@ -55,13 +55,9 @@ const shuffleArray = (array) => {
 // 🔘 Manuelles Mischen durch Button
 const sortCards = () => {
   console.log('sortCards aufgerufen, aktuelle Kartenanzahl:', cards.value.length) // Debugging
-  if (cards.value.length > 1) {
-    cards.value = shuffleArray(cards.value)
-    shuffleKey.value += 1 // Erzwingt Rendering
-    console.log('Karten gemischt, neue Anzahl:', cards.value.length) // Debugging
-  } else {
-    console.log('Nicht genug Karten zum Mischen:', cards.value.length)
-  }
+  cards.value = shuffleArray(cards.value)
+  shuffleKey.value += 1 // Erzwingt Rendering
+  console.log('Karten gemischt, neue Anzahl:', cards.value.length) // Debugging
 }
 
 onMounted(loadCards)
