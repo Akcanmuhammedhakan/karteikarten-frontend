@@ -12,7 +12,7 @@
     <div class="card-grid">
       <FlashCard
           v-for="card in cards"
-          :key="card.id + '-' + shuffleKey"
+          :key="card.id + '-' + shuffleKey.value"
           :card="card"
       />
     </div>
@@ -25,25 +25,23 @@ import FlashCard from './components/FlashCard.vue'
 import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
-const shuffleKey = ref(0) // 💡 damit Vue neu rendert
+const shuffleKey = ref(0) // sorgt für visuelles Neurendern
 
-// 🔁 Karten vom Backend laden
+// Karten vom Backend laden
 const loadCards = async () => {
   try {
     const response = await fetch('https://karteikarten-app.onrender.com/cards')
     if (!response.ok) throw new Error('Fehler beim Laden der Karten')
     const fetchedCards = await response.json()
-    cards.value = [...fetchedCards] // Kopie für Reaktivität
-    shuffleKey.value++ // Erzwingt Rendering
+    cards.value = [...fetchedCards]
   } catch (err) {
     console.error('Fehler beim Laden:', err)
-    cards.value = [] // Setze leeres Array bei Fehler
+    cards.value = []
   }
 }
 
-// 🔀 Shuffle-Funktion
+// Shuffle-Funktion
 const shuffleArray = (array) => {
-  if (!array || array.length <= 1) return [...array] // Kein Mischen bei 0 oder 1 Element
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -52,12 +50,10 @@ const shuffleArray = (array) => {
   return shuffled
 }
 
-// 🔘 Manuelles Mischen durch Button
+// Karten zufällig mischen
 const sortCards = () => {
-  console.log('sortCards aufgerufen, aktuelle Kartenanzahl:', cards.value.length) // Debugging
   cards.value = shuffleArray(cards.value)
-  shuffleKey.value += 1 // Erzwingt Rendering
-  console.log('Karten gemischt, neue Anzahl:', cards.value.length) // Debugging
+  shuffleKey.value++ // zwingt Vue zum Neurendern
 }
 
 onMounted(loadCards)
