@@ -33,15 +33,17 @@ const loadCards = async () => {
     const response = await fetch('https://karteikarten-app.onrender.com/cards')
     if (!response.ok) throw new Error('Fehler beim Laden der Karten')
     const fetchedCards = await response.json()
-    cards.value = shuffleArray(fetchedCards)
-    shuffleKey.value++ // damit es beim Laden neu rendert
+    cards.value = [...fetchedCards] // Kopie für Reaktivität
+    shuffleKey.value++ // Erzwingt Rendering
   } catch (err) {
     console.error('Fehler beim Laden:', err)
+    cards.value = [] // Setze leeres Array bei Fehler
   }
 }
 
 // 🔀 Shuffle-Funktion
 const shuffleArray = (array) => {
+  if (!array || array.length <= 1) return array // Kein Mischen bei 0 oder 1 Element
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -52,8 +54,11 @@ const shuffleArray = (array) => {
 
 // 🔘 Manuelles Mischen durch Button
 const sortCards = () => {
-  cards.value = shuffleArray(cards.value)
-  shuffleKey.value++ // 🔁 zwingt v-for zur Neudarstellung
+  console.log('sortCards aufgerufen, Karten:', cards.value.length) // Debugging
+  if (cards.value.length > 1) {
+    cards.value = shuffleArray(cards.value)
+    shuffleKey.value++ // Erzwingt Rendering
+  }
 }
 
 onMounted(loadCards)
