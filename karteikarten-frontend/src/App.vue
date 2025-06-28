@@ -22,6 +22,7 @@ import FlashCard from './components/FlashCard.vue'
 import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
+const sortDirection = ref('asc') // Neue Variable für Sortierrichtung
 
 // ✅ ÄNDERE DIE URL HIER
 const loadCards = async () => {
@@ -32,6 +33,20 @@ const loadCards = async () => {
   } catch (err) {
     console.error('Fehler beim Laden:', err)
   }
+}
+
+// Neue Sortiermethode
+const sortCards = () => {
+  cards.value.sort((a, b) => {
+    const titleA = a.title.toLowerCase()
+    const titleB = b.title.toLowerCase()
+    if (sortDirection.value === 'asc') {
+      return titleA < titleB ? -1 : titleA > titleB ? 1 : 0
+    } else {
+      return titleA > titleB ? -1 : titleA < titleB ? 1 : 0
+    }
+  })
+  sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
 }
 
 onMounted(loadCards)
