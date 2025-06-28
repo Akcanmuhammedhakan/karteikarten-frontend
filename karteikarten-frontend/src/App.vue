@@ -22,7 +22,6 @@ import FlashCard from './components/FlashCard.vue'
 import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
-const sortDirection = ref('asc') // Reaktive Variable für Sortierrichtung
 
 // ✅ ÄNDERE DIE URL HIER
 const loadCards = async () => {
@@ -35,21 +34,14 @@ const loadCards = async () => {
   }
 }
 
-// Sortiermethode, die zuverlässig toggelt
+// Methode zum zufälligen Mischen der Karten
 const sortCards = () => {
-  // Erstelle eine Kopie des Arrays, um reaktive Updates zu gewährleisten
-  const sortedCards = [...cards.value]
-  sortedCards.sort((a, b) => {
-    const titleA = a.title ? a.title.toLowerCase() : ''
-    const titleB = b.title ? b.title.toLowerCase() : ''
-    if (sortDirection.value === 'asc') {
-      return titleA.localeCompare(titleB)
-    } else {
-      return titleB.localeCompare(titleA)
-    }
-  })
-  cards.value = sortedCards // Weise die sortierte Kopie zu
-  sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+  const shuffledCards = [...cards.value] // Kopie erstellen für Reaktivität
+  for (let i = shuffledCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]] // Swap
+  }
+  cards.value = shuffledCards // Zuweisung der gemischten Karten
 }
 
 onMounted(loadCards)
