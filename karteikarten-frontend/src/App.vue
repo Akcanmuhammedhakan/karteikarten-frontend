@@ -43,7 +43,7 @@ const loadCards = async () => {
 
 // 🔀 Shuffle-Funktion
 const shuffleArray = (array) => {
-  if (!array || array.length <= 1) return array // Kein Mischen bei 0 oder 1 Element
+  if (!array || array.length <= 1) return [...array] // Kein Mischen bei 0 oder 1 Element
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -54,10 +54,13 @@ const shuffleArray = (array) => {
 
 // 🔘 Manuelles Mischen durch Button
 const sortCards = () => {
-  console.log('sortCards aufgerufen, Karten:', cards.value.length) // Debugging
+  console.log('sortCards aufgerufen, aktuelle Kartenanzahl:', cards.value.length) // Debugging
   if (cards.value.length > 1) {
     cards.value = shuffleArray(cards.value)
-    shuffleKey.value++ // Erzwingt Rendering
+    shuffleKey.value += 1 // Erzwingt Rendering
+    console.log('Karten gemischt, neue Anzahl:', cards.value.length) // Debugging
+  } else {
+    console.log('Nicht genug Karten zum Mischen:', cards.value.length)
   }
 }
 
