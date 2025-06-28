@@ -6,7 +6,7 @@
     <CardForm @card-saved="loadCards" />
 
     <!-- 🔹 Sortier-Button -->
-    <button @click="sortCards">Karten zufällig mischen</button>
+    <button @click="sortCards" class="sort-button">Karten zufällig mischen</button>
 
     <!-- 🔹 Kartenübersicht -->
     <div class="card-grid">
@@ -20,13 +20,13 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
+import { ref, onMounted } from 'vue'
 import FlashCard from './components/FlashCard.vue'
 import CardForm from './components/CardForm.vue'
 
 const cards = ref([])
 
-// 🔁 Karten vom Backend laden
+// ✅ Karten vom Server laden
 const loadCards = async () => {
   try {
     const response = await fetch('https://karteikarten-app.onrender.com/cards')
@@ -37,14 +37,14 @@ const loadCards = async () => {
   }
 }
 
-// 🔀 Karten zufällig sortieren
+// ✅ Karten zufällig mischen
 const sortCards = () => {
-  const shuffledCards = [...cards.value]
-  for (let i = shuffledCards.length - 1; i > 0; i--) {
+  const shuffled = [...cards.value]
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
-  cards.value = shuffledCards
+  cards.value = shuffled
 }
 
 onMounted(loadCards)
@@ -67,7 +67,7 @@ onMounted(loadCards)
   margin-top: 2rem;
 }
 
-button {
+.sort-button {
   margin-top: 1.5rem;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
@@ -78,7 +78,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.sort-button:hover {
   background: #2563eb;
 }
 </style>
